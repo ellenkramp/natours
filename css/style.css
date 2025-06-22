@@ -1,0 +1,181 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; }
+
+html {
+  /* hard coding in pixels is bad for accessibility */
+  font-size: 62.5%; }
+
+/* font related things should be under body for universal stuff */
+body {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  /* font-size: 16px; */
+  line-height: 1.7;
+  color: #777;
+  padding: 3rem; }
+
+.header {
+  height: 95vh;
+  /* you can specify multiple images with a comma */
+  background-image: linear-gradient(to right bottom, rgba(126, 213, 111, 0.8), rgba(40, 180, 133, 0.8)), url(../img/hero.jpg);
+  background-size: cover;
+  /* upon resizing, the bottom gets cut off and top is preserved */
+  background-position: top;
+  /* takes polygonal shape out of the element 
+    and the coordinates specify what you are preserving */
+  clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+  position: relative; }
+
+.header__logo-box {
+  position: absolute;
+  /* top and left refers to parent element which would be marked as position relative */
+  top: 4rem;
+  left: 4rem; }
+
+.header__logo {
+  height: 35px; }
+
+.header__text-box {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  /* these transform values represent a percent of the element's size,
+    not the parent */
+  transform: translate(-50%, -50%);
+  text-align: center; }
+
+.heading-primary {
+  color: #fff;
+  text-transform: uppercase;
+  /* prevents seeing back part of element which relieves shakiness in animation*/
+  backface-visibility: hidden;
+  margin-bottom: 6rem; }
+
+.heading-primary--main {
+  display: block;
+  font-size: 6rem;
+  font-weight: 400;
+  letter-spacing: 3.5rem;
+  /* these are the only 2 properties required to make the animation work */
+  animation-name: moveInLeft;
+  animation-duration: 1s;
+  /* other animation properties
+    animation-timing-function: ease-out;
+    animation-iteration-count: 3;
+    animation-delay: 3s;
+    */ }
+
+.heading-primary--sub {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 1.75rem;
+  /* shorthand version of the same 2 properties we specified above */
+  animation: moveInRight 1s; }
+
+/* arbitrarily named "movedInLeft" - you can name it anything */
+@keyframes moveInLeft {
+  /* start by defining 0% and 100% so you know your start and end point behavior */
+  0% {
+    /* opacity and transform are most common and best properties to use */
+    opacity: 0;
+    /* use the type of translation of the direction you want to animate */
+    /* positive values are to the right and negative to the left (like a graph in math) */
+    transform: translateX(-10rem); }
+  80% {
+    transform: translateX(1rem); }
+  100% {
+    opacity: 1;
+    transform: translateX(0); } }
+
+@keyframes moveInRight {
+  /* start by defining 0% and 100% so you know your start and end point behavior */
+  0% {
+    /* opacity and transform are most common and best properties to use */
+    opacity: 0;
+    /* use the type of translation of the direction you want to animate */
+    /* positive values are to the right and negative to the left (like a graph in math) */
+    transform: translateX(10rem); }
+  80% {
+    transform: translateX(-1rem); }
+  100% {
+    opacity: 1;
+    transform: translateX(0); } }
+
+@keyframes moveInBottom {
+  /* start by defining 0% and 100% so you know your start and end point behavior */
+  0% {
+    /* opacity and transform are most common and best properties to use */
+    opacity: 0;
+    /* use the type of translation of the direction you want to animate */
+    /* positive values are to the right and negative to the left (like a graph in math) */
+    transform: translateY(3rem); }
+  80% {
+    transform: translateY(-1rem); }
+  100% {
+    opacity: 1;
+    transform: translateY(0); } }
+
+/* link pseudo class */
+.btn:link,
+.btn:visited {
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 1.5rem 4rem;
+  display: inline-block;
+  border-radius: 999px;
+  /* this makes a smooth animation for translates */
+  transition: all 0.2s;
+  /* adding this position property allows the pseudo element .btn:after to position itself relative to this element */
+  position: relative;
+  font-size: 1.6rem; }
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2); }
+
+/* when clicked = active */
+.btn:active {
+  transform: translateX(-1px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2); }
+
+.btn--white {
+  background-color: #fff;
+  color: #777; }
+
+/* ::after is adding a virtual element after an existing one */
+/* styled as if it were a child of .btn*/
+.btn::after {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  border-radius: 10rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  /* don't use on the hover psuedo class */
+  transition: all 0.4s; }
+
+.btn--white::after {
+  background-color: #fff; }
+
+.btn:hover::after {
+  transform: scaleX(1.4) scaleY(1.6);
+  opacity: 0; }
+
+.btn--animated {
+  /* .75 is delay value */
+  animation: moveInBottom 0.5 ease-out 0.75s;
+  /* will apply styles before animation starts */
+  animation-fill-mode: backwards; }
+
+/* Responsive */
+/* maintainable scalable */
+/* web performance */
+/* css preprocessor like sass helps web performance */
